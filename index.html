@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyrone Jed De La Cruz | Data Analyst Portfolio</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Mono&display=swap');
+         :root {
+            --orange: #FF8C00;
+            --orange-bright: #FFA500;
+            --orange-dim: rgba(255, 140, 0, 0.15);
+            --bg-deep: #0a0b10;
+            --glass: rgba(255, 255, 255, 0.03);
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        /* --- GLOBAL RESET --- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        /* --- NAVIGATION --- */
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 11, 16, 0.8), transparent);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-weight: 800;
+            color: var(--orange);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+        /* --- HERO --- */
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+        
+        .hero-tag {
+            font-family: 'Space Mono', monospace;
+            color: var(--orange);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+        
+        .orange-text {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--orange);
+            transition: var(--transition);
+        }
+        
+        .orange-text:hover {
+            color: var(--orange);
+            -webkit-text-stroke: 1px transparent;
+            text-shadow: 0 0 30px var(--orange-dim);
+        }
+        /* --- PROFILE --- */
+        
+        .section {
+            padding: 120px 10%;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .image-container {
+            position: relative;
+            border-radius: 40px;
+            padding: 20px;
+            background: var(--glass);
+            border: 1px solid var(--orange-dim);
+        }
+        
+        .profile-img {
+            width: 100%;
+            border-radius: 20px;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+        
+        .image-container:hover .profile-img {
+            filter: grayscale(0%);
+            transform: scale(0.98);
+        }
+        /* --- SKILLS --- */
+        
+        .skills-grid {
+            margin-top: 40px;
+        }
+        
+        .skill-item {
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .bar-bg {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            background: var(--orange);
+            width: 0;
+            transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
+            box-shadow: 0 0 10px var(--orange);
+        }
+        /* --- TOAST STYLING --- */
+        
+        #skill-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--orange);
+            color: var(--bg-deep);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            z-index: 2000;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+            font-family: 'Space Mono', monospace;
+            pointer-events: none;
+        }
+        
+        #skill-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        /* --- PROJECTS --- */
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .card:hover {
+            border-color: var(--orange-dim);
+            background: rgba(255, 140, 0, 0.05);
+            transform: translateY(-10px);
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .emoji-span {
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .emoji-span {
+            transform: scale(1.3) rotate(10deg);
+        }
+        
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        /* --- CONTACT --- */
+        
+        .contact-wrap {
+            text-align: center;
+            background: var(--orange);
+            padding: 100px 50px;
+            border-radius: 50px;
+            color: var(--bg-deep);
+            margin-top: 50px;
+        }
+        
+        .contact-wrap h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cta-btn {
+            background: var(--bg-deep);
+            color: var(--orange);
+            padding: 20px 50px;
+            border-radius: 100px;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            margin-top: 20px;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            letter-spacing: 1px;
+            color: white;
+        }
+        /* --- REDESIGNED SOCIAL HUB --- */
+        
+        .social-hub {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+        
+        .social-box {
+            background: rgba(10, 11, 16, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--bg-deep);
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 12px;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 160px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .social-box:hover {
+            transform: translateY(-8px) rotateX(10deg);
+            background: var(--bg-deep);
+            border-color: var(--bg-deep);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            color: var(--orange);
+        }
+        
+        .social-tag {
+            font-size: 0.55rem;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        footer {
+            padding: 80px 50px 40px;
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            nav .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="skill-toast">Level: Expert</div>
+
+    <nav>
+        <div class="logo">DATA.ANALYST.888</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Stack</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <span class="hero-tag">DATA ARCHITECTURE // STRATEGIC INSIGHTS</span>
+        <h1>CLEAN DATA. <br><span class="orange-text">BETTER DECISIONS.</span></h1>
+        <p style="max-width: 650px; margin-top: 25px; color: var(--text-muted); font-size: 1.1rem;">
+            I specialize in turning messy datasets into actionable business intelligence using Python, SQL, and Excel.
+        </p>
+        <a href="#projects" class="cta-btn" style="background: var(--orange); color: var(--bg-deep); margin-top: 40px;">EXPLORE MY WORK</a>
+    </section>
+
+    <section class="section" id="about">
+        <div class="about-grid">
+            <div class="image-container">
+                <img src="474474993_1014418670516596_7802229464234978629_n.jpg" alt="Tyrone Jed De La Cruz" class="profile-img">
+            </div>
+            <div class="about-content">
+                <h2 style="font-size: 3rem; margin-bottom: 10px;">The Methodology</h2>
+                <p style="font-family: 'Space Mono', monospace; color: var(--orange); margin-bottom: 20px;">Tyrone Jed De La Cruz | Iloilo City</p>
+                <p>Data doesn't lie, but it requires an honest interpreter. My mission is to provide businesses with a <span style="color: var(--orange); font-weight: bold;">straightforward path</span> to complex decision-making.</p>
+                <div class="skills-grid" id="skills">
+                    <div class="skill-item" onclick="showSkillDetail('Automation: VBA, Power Query & Pivot Tables')">
+                        <div class="skill-info"><span>EXCEL / AUTOMATION</span><span>95%</span></div>
+                        <div class="bar-bg">
+                            <div class="bar-fill" data-percent="95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" onclick="showSkillDetail('Modeling: Pandas, NumPy & Scikit-learn')">
+                        <div class="skill-info"><span>PYTHON / PANDAS</span><span>88%</span></div>
+                        <div class="bar-bg">
+                            <div class="bar-fill" data-percent="88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" onclick="showSkillDetail('Management: Database Design & Complex Joins')">
+                        <div class="skill-info"><span>MYSQL / BIGQUERY</span><span>92%</span></div>
+                        <div class="bar-bg">
+                            <div class="bar-fill" data-percent="92%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 10px;">My Recent Work</h2>
+        <div class="project-grid">
+            <div class="card">
+                <h3>01. Revenue Recovery <span class="emoji-span">💰</span></h3>
+                <p>Used MySQL to identify a 12% billing error in logistics. Successfully recovered lost revenue for the client within 30 days.</p>
+            </div>
+            <div class="card">
+                <h3>02. Predicting Behavior <span class="emoji-span">🐍</span></h3>
+                <p>Built a Python model that predicts which customers might leave. This helps businesses keep their clients happy.</p>
+            </div>
+            <div class="card">
+                <h3>03. Fast Dashboards <span class="emoji-span">📊</span></h3>
+                <p>Created Excel tools that handle data automatically. This saved the team 15 hours of manual work every single week.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="contact-wrap">
+            <h2>Let's Talk Data</h2>
+            <p style="font-size: 1.4rem; font-weight: 600;">Turning raw numbers into your competitive advantage.</p>
+
+            <a href="mailto:14tyrone888@gmail.com?subject=Portfolio Inquiry | Data Analyst&body=Hi Tyrone,%0D%0A%0D%0AI saw your portfolio and would like to discuss a project..." class="cta-btn">Message me!</a>
+
+            <div class="social-hub">
+                <a href="https://github.com/Kyross888" target="_blank" class="social-box">
+                    GITHUB
+                    <span class="social-tag">Source Code</span>
+                </a>
+                <a href="https://x.com/TyroneDe4083" target="_blank" class="social-box">
+                    X (TWITTER)
+                    <span class="social-tag">Updates</span>
+                </a>
+                <a href="https://discord.com/users/820182641029546034" target="_blank" class="social-box">
+                    DISCORD
+                    <span class="social-tag">Direct Chat</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 // TYRONE JED DE LA CRUZ // DATA ANALYSIS // 14tyrone888@gmail.com</p>
+    </footer>
+
+    <script>
+        // Interactive Skill Logic
+        function showSkillDetail(message) {
+            const toast = document.getElementById('skill-toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+
+            // Hide after 2.5 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/serviceworker.js')
+                    .then(reg => console.log('Service Worker Registered!'))
+                    .catch(err => console.log('Service Worker Failed:', err));
+            });
+        }
+
+        // Particle Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.8;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = '#FF8C00';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Skill Bar Animation
+        const skillBars = document.querySelectorAll('.bar-fill');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.style.width = entry.target.dataset.percent;
+            });
+        }, {
+            threshold: 0.5
+        });
+        skillBars.forEach(bar => skillObserver.observe(bar));
+    </script>
+</body>
+
+</html>

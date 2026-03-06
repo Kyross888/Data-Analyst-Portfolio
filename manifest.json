@@ -1,0 +1,15 @@
+{
+    "short_name": "TyroneData",
+    "name": "Tyrone Jed De La Cruz | Data Analyst",
+    "icons": [{
+        "src": "image.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }],
+    "start_url": "/index.html",
+    "background_color": "#0a0b10",
+    "theme_color": "#FF8C00",
+    "display": "standalone",
+    "orientation": "portrait",
+    "description": "Data Analyst portfolio specializing in Python, SQL, and Automation."
+}
