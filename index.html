@@ -255,27 +255,167 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            margin-left: -40px;
-            margin-right: -40px;
-            margin-top: -40px;
-            padding: 20px 20px 0;
         }
 
         .card-img-row img {
             width: 50%;
-            height: 220px;
+            height: 140px;
             object-fit: cover;
             object-position: top;
             border-radius: 14px;
             border: 1px solid rgba(255, 140, 0, 0.2);
         }
+        /* --- FEATURED PROJECT --- */
 
-        .card.wide {
-            grid-column: 1 / -1;
+        .featured-project {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 80px;
+            align-items: center;
+            margin: 60px 0 110px;
         }
 
-        .card.wide .card-img-row img {
-            height: 280px;
+        .feature-tag {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            color: var(--orange);
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--orange);
+            margin-bottom: 25px;
+        }
+
+        .feature-title {
+            font-size: clamp(2.8rem, 6vw, 4.2rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--orange);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+        .featured-text:hover .feature-title {
+            color: var(--orange);
+            -webkit-text-stroke: 1px transparent;
+            text-shadow: 0 0 40px var(--orange-dim);
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin-bottom: 35px;
+        }
+
+        .feature-desc strong {
+            color: var(--text-main);
+        }
+
+        .featured-visual {
+            position: relative;
+            padding: 40px 60px 70px 0;
+        }
+
+        .browser-mockup {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #1a1b23;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.65), 0 0 60px rgba(255, 140, 0, 0.06);
+        }
+
+        .main-shot {
+            position: relative;
+            z-index: 1;
+            transform: perspective(1400px) rotateY(-10deg) rotateX(4deg);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease;
+        }
+
+        .mini-shot {
+            position: absolute;
+            width: 48%;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            transform: perspective(1400px) rotateY(-6deg) rotateX(2deg);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.65);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease;
+        }
+
+        .featured-visual:hover .main-shot {
+            transform: perspective(1400px) rotateY(0deg) rotateX(0deg) scale(1.02);
+            box-shadow: 0 50px 90px -20px rgba(0, 0, 0, 0.75), 0 0 90px rgba(255, 140, 0, 0.16);
+        }
+
+        .featured-visual:hover .mini-shot {
+            transform: perspective(1400px) rotateY(0deg) rotateX(0deg) translate(-16px, -24px) scale(1.03);
+            box-shadow: 0 40px 70px -18px rgba(0, 0, 0, 0.75), 0 0 50px rgba(255, 140, 0, 0.14);
+        }
+
+        .browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 14px;
+            background: #12131a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .browser-bar .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .dot.red {
+            background: #ff5f57;
+        }
+
+        .dot.yellow {
+            background: #febc2e;
+        }
+
+        .dot.green {
+            background: #28c840;
+        }
+
+        .browser-url {
+            margin-left: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 12px;
+            border-radius: 20px;
+        }
+
+        .mockup-img {
+            width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 992px) {
+            .featured-project {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .featured-visual {
+                padding: 30px 30px 50px 0;
+            }
+            .main-shot,
+            .featured-visual:hover .main-shot {
+                transform: none;
+            }
+            .mini-shot,
+            .featured-visual:hover .mini-shot {
+                transform: none;
+                width: 45%;
+                bottom: -30px;
+                left: -20px;
+            }
         }
         
         .emoji-span {
@@ -459,15 +599,31 @@
 
     <section class="section" id="projects">
         <h2 style="text-align: center; font-size: 3rem; margin-bottom: 10px;">My Recent Work</h2>
-        <div class="project-grid">
-            <a href="https://github.com/Kyross888/Sugilanon-Project-2" target="_blank" class="card wide">
-                <div class="card-img-row">
-                    <img src="sugilanon-order-screen.png" alt="Luna's POS New Order screen">
-                    <img src="sugilanon-dashboard-screen.png" alt="Luna's Dashboard analytics screen">
+        <div class="featured-project">
+            <div class="featured-text">
+                <span class="feature-tag">Featured Project</span>
+                <h3 class="feature-title">SUGILANON POS</h3>
+                <p class="feature-desc">A full point-of-sale and analytics system built for <strong>"Luna's,"</strong> a multi-branch restaurant chain. Staff take orders through a category menu, manage a live cart with coupons and Senior/PWD discounts, and choose dine-in or take-out. Owners get a real-time dashboard rolling up revenue, orders, and stock alerts across all <strong>8 branches</strong>.</p>
+                <a href="https://github.com/Kyross888/Sugilanon-Project-2" target="_blank" class="cta-btn" style="background: var(--orange); color: var(--bg-deep);">View Code</a>
+            </div>
+            <div class="featured-visual">
+                <div class="browser-mockup main-shot">
+                    <div class="browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="browser-url">sugilanon-dashboard.app</span>
+                    </div>
+                    <img src="sugilanon-dashboard-screen.png" alt="Luna's Dashboard analytics screen" class="mockup-img">
                 </div>
-                <h3>00. Sugilanon POS & Dashboard <span class="emoji-span">🍜</span></h3>
-                <p>A full point-of-sale and analytics system built for "Luna's," a multi-branch restaurant chain. On the front end, staff take orders through a menu grid organized by category (breakfast, merienda, rice meals, native specials, drinks), add items to a live cart, apply coupons or the Senior/PWD discount, and choose dine-in or take-out before checkout. Behind the scenes, an owner-facing dashboard rolls up revenue, order counts, and stock alerts across all 8 branches in real time — flagging the top-performing branch, surfacing low and out-of-stock items, and letting the owner drill into any single branch's numbers. Built to replace manual, per-branch tracking with one live view of the whole business.</p>
-            </a>
+                <div class="browser-mockup mini-shot">
+                    <div class="browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="browser-url">new-order</span>
+                    </div>
+                    <img src="sugilanon-order-screen.png" alt="Luna's POS New Order screen" class="mockup-img">
+                </div>
+            </div>
+        </div>
+        <div class="project-grid">
             <div class="card">
                 <h3>01. Revenue Recovery <span class="emoji-span">💰</span></h3>
                 <p>Used MySQL to identify a 12% billing error in logistics. Successfully recovered lost revenue for the client within 30 days.</p>
