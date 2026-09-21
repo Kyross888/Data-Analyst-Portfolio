@@ -250,6 +250,21 @@
             align-items: center;
             gap: 10px;
         }
+
+        .card-img-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-img-row img {
+            width: 50%;
+            height: 140px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
         
         .emoji-span {
             transition: transform 0.3s ease;
@@ -433,6 +448,14 @@
     <section class="section" id="projects">
         <h2 style="text-align: center; font-size: 3rem; margin-bottom: 10px;">My Recent Work</h2>
         <div class="project-grid">
+            <a href="https://github.com/Kyross888/Sugilanon-Project-2" target="_blank" class="card">
+                <div class="card-img-row">
+                    <img src="sugilanon-order-screen.png" alt="Luna's POS New Order screen">
+                    <img src="sugilanon-dashboard-screen.png" alt="Luna's Dashboard analytics screen">
+                </div>
+                <h3>00. Sugilanon POS & Dashboard <span class="emoji-span">🍜</span></h3>
+                <p>Built a multi-branch point-of-sale and analytics dashboard for a restaurant chain — live order-taking, inventory, and revenue tracking across 8 branches.</p>
+            </a>
             <div class="card">
                 <h3>01. Revenue Recovery <span class="emoji-span">💰</span></h3>
                 <p>Used MySQL to identify a 12% billing error in logistics. Successfully recovered lost revenue for the client within 30 days.</p>
