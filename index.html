@@ -255,15 +255,27 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            margin-left: -40px;
+            margin-right: -40px;
+            margin-top: -40px;
+            padding: 20px 20px 0;
         }
 
         .card-img-row img {
             width: 50%;
-            height: 140px;
+            height: 220px;
             object-fit: cover;
             object-position: top;
             border-radius: 14px;
             border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .card.wide {
+            grid-column: 1 / -1;
+        }
+
+        .card.wide .card-img-row img {
+            height: 280px;
         }
         
         .emoji-span {
@@ -448,13 +460,13 @@
     <section class="section" id="projects">
         <h2 style="text-align: center; font-size: 3rem; margin-bottom: 10px;">My Recent Work</h2>
         <div class="project-grid">
-            <a href="https://github.com/Kyross888/Sugilanon-Project-2" target="_blank" class="card">
+            <a href="https://github.com/Kyross888/Sugilanon-Project-2" target="_blank" class="card wide">
                 <div class="card-img-row">
                     <img src="sugilanon-order-screen.png" alt="Luna's POS New Order screen">
                     <img src="sugilanon-dashboard-screen.png" alt="Luna's Dashboard analytics screen">
                 </div>
                 <h3>00. Sugilanon POS & Dashboard <span class="emoji-span">🍜</span></h3>
-                <p>Built a multi-branch point-of-sale and analytics dashboard for a restaurant chain — live order-taking, inventory, and revenue tracking across 8 branches.</p>
+                <p>A full point-of-sale and analytics system built for "Luna's," a multi-branch restaurant chain. On the front end, staff take orders through a menu grid organized by category (breakfast, merienda, rice meals, native specials, drinks), add items to a live cart, apply coupons or the Senior/PWD discount, and choose dine-in or take-out before checkout. Behind the scenes, an owner-facing dashboard rolls up revenue, order counts, and stock alerts across all 8 branches in real time — flagging the top-performing branch, surfacing low and out-of-stock items, and letting the owner drill into any single branch's numbers. Built to replace manual, per-branch tracking with one live view of the whole business.</p>
             </a>
             <div class="card">
                 <h3>01. Revenue Recovery <span class="emoji-span">💰</span></h3>
